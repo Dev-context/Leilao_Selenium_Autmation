@@ -1,5 +1,6 @@
 package br.com.alura.leilao.login;
 
+import br.com.alura.leilao.auction.AuctionsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -31,8 +32,9 @@ public class LoginPage {
     }
 
 
-    public void clickLogin() {
+    public AuctionsPage clickLogin() {
         browser.findElement(By.className("btn")).click();
+        return new AuctionsPage(browser);
     }
 
     public boolean IsLoginPage() {
