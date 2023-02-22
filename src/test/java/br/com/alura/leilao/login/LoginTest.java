@@ -2,7 +2,6 @@ package br.com.alura.leilao.login;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,23 +10,18 @@ import org.junit.jupiter.api.Test;
 import java.net.URL;
 
 public class LoginTest {
-    private static LoginPage loginPage;
+    private  LoginPage loginPage;
 
-    @BeforeAll
-    public static void SetDriver() {
 
-    }
 
     @BeforeEach
-    public void OpenBrowser() {
+    public void beforeEach() {
         this.loginPage = new LoginPage();
-
-
     }
 
     @AfterEach
-    public void TearDown() {
-      this.loginPage.TearDown();
+    public void afterEach() {
+//      this.loginPage.TearDown();
     }
 
 
@@ -50,7 +44,7 @@ public class LoginTest {
 
     @Test
     public void ShouldntAcessRetrictURL() {
-        this.loginPage.OpenUrl("http://localhost:8080/leiloes/2");
+//        this.loginPage.openUrl("http://localhost:8080/leiloes/2");
         Assert.assertTrue(this.loginPage.IsLoginPage());
         Assert.assertFalse(this.loginPage.getPageText("Dados do Leilão"));
     }

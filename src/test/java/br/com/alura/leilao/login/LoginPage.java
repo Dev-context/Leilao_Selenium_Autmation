@@ -1,57 +1,47 @@
 package br.com.alura.leilao.login;
 
-import br.com.alura.leilao.auction.AuctionsPage;
+import br.com.alura.leilao.BasePage;
+import br.com.alura.leilao.auction.AuctionsListPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginPage {
-    private WebDriver browser;
+public class LoginPage extends BasePage {
     private final String URL_LOGIN = "http://localhost:8080/login";
 
     public LoginPage() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        this.browser = new ChromeDriver();
-        this.OpenUrl(URL_LOGIN);
+        super(null);
+        this.driver.get(URL_LOGIN);
     }
 
-    public void OpenUrl(String url) {
-        this.browser.get(url);
-    }
-
-    public void TearDown() {
-        this.browser.quit();
-    }
 
     public void fillformLogin(String user, String password) {
-        browser.findElement(By.xpath("//a[text()='Entrar']")).click();
-        browser.findElement(By.name("username")).sendKeys(user);
-        browser.findElement(By.name("password")).sendKeys(password);
+        this.driver.findElement(By.xpath("//a[text()='Entrar']")).click();
+        this.driver.findElement(By.name("username")).sendKeys(user);
+        this.driver.findElement(By.name("password")).sendKeys(password);
 
     }
 
 
-    public AuctionsPage clickLogin() {
-        browser.findElement(By.className("btn")).click();
-        return new AuctionsPage(browser);
+    public AuctionsListPage clickLogin() {
+        this.driver.findElement(By.className("btn")).click();
+        return new AuctionsListPage(this.driver);
     }
 
     public boolean IsLoginPage() {
-        return browser.getCurrentUrl().equals(URL_LOGIN);
+        return this.driver.getCurrentUrl().equals(URL_LOGIN);
     }
 
     public String getUserNameLogged() {
         try {
-            return browser.findElement(By.className("font-italic")).getText();
+            return this.driver.findElement(By.className("font-italic")).getText();
         } catch (NoSuchElementException error) {
             return null;
         }
 
     }
 
-
     public boolean getPageText(String text) {
-        return browser.getPageSource().contains(text);
+        return this.driver.getPageSource().contains(text);
     }
 }
